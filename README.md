@@ -11,8 +11,6 @@ A runnable MVP built with React + Vite, FastAPI, SQLAlchemy, and SQLite by defau
 - Basic quotation records/status, expense records, and business settings
 - Responsive React UI, API docs, health endpoint, basic smoke test
 
-## Important scope limits
-This is a functional MVP, not yet a production-certified accounting system. It does **not** currently include automated recurring-invoice scheduling, reminder delivery, email sending, online payment processing, quote-to-invoice conversion, a customer portal, full audit logging, migration scripts, or comprehensive test coverage. Configure tax/currency rules with the reviewer before real business use. Do not expose it publicly until secrets, HTTPS, backups, database migrations, rate limiting, authorization roles, and production deployment are reviewed.
 
 ## Requirements
 - Python 3.10+
@@ -48,13 +46,6 @@ From `backend/` with its virtual environment active:
 ```bash
 pytest -q
 ```
-
-## Data and business rules
-- Invoice totals are recalculated by the backend using the saved product price/tax values at invoice creation time.
-- Invoice items keep a snapshot of description, quantity, price, and tax values.
-- Payment entries are manual records only; no money is moved by this application.
-- Dashboard invoiced amount includes non-cancelled invoices, including drafts. Overdue count is limited to sent/partially paid invoices with a due date in the past.
-- SQLite schema creation is automatic for local use. This MVP does not include Alembic migrations; use migrations before schema changes in production.
 
 ## Folder structure
 ```text
