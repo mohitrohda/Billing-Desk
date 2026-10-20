@@ -18,7 +18,17 @@ from .security import hash_password, verify_password, create_token, current_user
 Base.metadata.create_all(bind=engine)
 app = FastAPI(title=os.getenv("APP_NAME", "Billing & Invoicing API"), version="1.0.0")
 origins = [os.getenv("FRONTEND_ORIGIN", "http://localhost:5173"), "http://localhost:5173", "http://127.0.0.1:5173"]
-app.add_middleware(CORSMiddleware, allow_origins=list(set(origins)), allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://billing-desk-frontend.onrender.com",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 CENT = Decimal("0.01")
 def money(value): return Decimal(value).quantize(CENT, rounding=ROUND_HALF_UP)
 def require_user(user=Depends(current_user)): return user
